@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Rogalik.Weapons;
 
 namespace Rogalik
 {
@@ -22,19 +23,19 @@ namespace Rogalik
         }
         public class Hero : Person 
         {
-            public int Damage {  get; set; }
-            public int Protection { get; set; }
-            public Hero(int MaxHP,int HP,string name,int Damage, int Protection): base(MaxHP, HP, name)
+            public Weapon Damage {  get; set; }
+            public Armor Protection { get; set; }
+            public Hero(int MaxHP,int HP,string name, Weapon Wep, Armor Protection): base(MaxHP, HP, name)
             {
-                this.Damage = Damage;
+                this.Damage = Wep;
                 this.Protection = Protection;  
             }
         }
         public class Enemy : Person
         {
-            public int Damage { get;}
-            public int Protection { get;}
-            public Enemy(int MaxHP, int HP, string name, int Damage, int Protection) : base(MaxHP, HP, name)
+            public double Damage { get;}
+            public double Protection { get;}
+            public Enemy(int MaxHP, int HP, string name, double Damage, double Protection) : base(MaxHP, HP, name)
             {
                 this.Damage = Damage;
                 this.Protection = Protection;
