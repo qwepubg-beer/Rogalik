@@ -7,38 +7,50 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Game">
-
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Rectangle Grid.ColumnSpan="16" Grid.Row="0" HorizontalAlignment="Center" MinHeight="50" Stroke="Gray"  Width="800" MaxWidth="1600" Fill="Red" />
-        <TextBlock Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Этаж номер 1" VerticalAlignment="Center" Width="150" FontSize="20"/>
+        <Border Grid.Row="0" Background="Red">
+            <TextBlock Text="Этаж номер 1" FontSize="20" Margin="10" HorizontalAlignment="Right"/>
+        </Border>
+        <Border Grid.Row="1" Background="LightGray" Margin="5">
+            <WrapPanel HorizontalAlignment="Center" Margin="5" VerticalAlignment="Center">
+                <StackPanel Width="200" Height="300" Margin="0,0,10,0">
+                    <Image Height="275"></Image>
+                    <ProgressBar Height="25"/>
+                </StackPanel>
+                <ListBox x:Name="CPUList"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=3} ">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel HorizontalAlignment="Center">
+                                <Image Height="240" Width="175"  Source="{Binding basepartCPU.image}"/>
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock Padding="5" Text="{Binding name}" TextWrapping="Wrap"/>
+                                </StackPanel>
+                                <ProgressBar Height="25"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
+            </WrapPanel>
+        </Border>
+        <Border Grid.Row="2" Background="Red">
+            <WrapPanel HorizontalAlignment="Center" Margin="5">
+                <StackPanel Width="320" Height="60">
+                    
+                </StackPanel>
+                <Button Content="Атака" Width="80" Height="40" Margin="5"/>
+                <Button Content="Защита" Width="80" Height="40" Margin="5"/>
+                <ListBox Width="255" Height="60"/>
+            </WrapPanel>
+        </Border>
     </Grid>
 </Page>
