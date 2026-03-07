@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Rogalik.Weapons;
+using static Rogalik.Rand;
 
 namespace Rogalik
 {
@@ -30,6 +31,11 @@ namespace Rogalik
                 this.Damage = Wep;
                 this.Protection = Protection;  
             }
+            public double ReturnDamage(Hero hero, Enemy e)
+            {
+                double at = hero.Damage.Damage * e.Protection;
+                return at;
+            }
         }
         public class Enemy : Person
         {
@@ -39,6 +45,44 @@ namespace Rogalik
             {
                 this.Damage = Damage;
                 this.Protection = Protection;
+            }
+        }
+        public class Goblin: Enemy
+        {
+            public static double krit { get; set; } = 0.2;
+            public Goblin(int MaxHP, int HP, string name, double Damage, double Protection, double krit): base (MaxHP, HP, name, Damage, Protection) 
+            {
+            }
+            public double ReturnDamage(Hero hero,Goblin g)
+            {
+                double at = GetChance(krit) ? g.Damage * hero.Protection.Protection * 2 : g.Damage * hero.Protection.Protection;
+                return at;
+            }
+        }
+        public class Skelet : Enemy
+        {
+            public int armor { get; set; } = 0;
+            public Skelet(int MaxHP, int HP, string name, double Damage, double Protection, int krit) : base(MaxHP, HP, name, Damage, Protection)
+            {
+                this.armor = krit;
+            }
+            public double ReturnDamage(Hero hero, Skelet s)
+            {
+                double at = s.Damage;
+                return at;
+            }
+        }
+        public class Wizard : Enemy
+        {
+            public double skip { get; set; } = 0.15;
+            public Wizard(int MaxHP, int HP, string name, double Damage, double Protection, double krit) : base(MaxHP, HP, name, Damage, Protection)
+            {
+                skip = krit;
+            }
+            public double ReturnDamage(Hero hero, Wizard w)
+            {
+                double at = GetChance(skip) ? w.Damage * hero.Protection.Protection * 2 : w.Damage * hero.Protection.Protection;
+                return at;
             }
         }
     }
