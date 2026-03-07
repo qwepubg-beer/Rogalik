@@ -12,8 +12,8 @@ namespace Rogalik
     {
         public class Person 
         {   
-            int MaxHP { get; set; }
-            int HP {  get; set; }
+            public int MaxHP { get; set; }
+            public double HP {  get; set; }
             public string name { get; set; }
             public Person(int maxHP, int hP, string name)
             {

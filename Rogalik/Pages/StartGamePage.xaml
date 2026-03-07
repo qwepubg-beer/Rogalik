@@ -1,0 +1,47 @@
+﻿<Page x:Class="Rogalik.Pages.StartGamePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Rogalik.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="StartGamePage">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Button Content="Играть" Grid.Column="7" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" MinHeight="35" Click="Button_Click"/>
+        <Button Content="Об игре" Grid.Column="7" Grid.Row="5" Grid.ColumnSpan="2" VerticalAlignment="Center" MinHeight="35" Click="Button_Click_3"/>
+        <Button Content="Оружия" Grid.Column="7" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Center" MinHeight="35" Click="Button_Click_2"/>
+        <Button Content="Персонажи" Grid.Column="7" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Center" MinHeight="35" Click="Button_Click_1"/>
+        <TextBlock Grid.Column="13" HorizontalAlignment="Center" Grid.Row="8" TextWrapping="Wrap" Grid.ColumnSpan="3"  Text="Версия Beta 1.0" VerticalAlignment="Center" MinHeight="35" FontSize="16" MinWidth="100"/>
+
+    </Grid>
+</Page>
