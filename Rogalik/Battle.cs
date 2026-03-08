@@ -9,6 +9,8 @@ using System.Windows.Controls;
 using static Rogalik.Persons;
 using static Rogalik.Rand;
 using static Rogalik.Weapons;
+using static Rogalik.Case;
+using System.Windows;
 
 namespace Rogalik
 {
@@ -27,11 +29,11 @@ namespace Rogalik
             //Thread.Sleep(1000);
             if (GetChance(0.50))
             {
-                
+                MessageBox.Show(Spin());
             }
             else
             {
-
+                battle(p, e);
             }
         }
         static void battlesystem(Hero p, List<Enemy> enemies, List<Enemy> bosses)
@@ -53,7 +55,6 @@ namespace Rogalik
                 else { CaseOrBattle(p, enemies[GetValue(3)]); }
             }
             Console.WriteLine("Вы проиграли");
-
         }
     }
 }

@@ -10,10 +10,25 @@ namespace Rogalik
 {
     internal class Weapons
     {
+        public static Item Regeneration = new Item("Зелье регенерации");
+        public static Weapon Axe = new Weapon("Топор",10,false);
+        public static Weapon Sword = new Weapon("Меч", 9, false);
+        public static List <Item> Items = new List <Item> { Axe,Sword};   
         static public double LevelUp = 0.1;
-        public class Weapon 
+        public class Item
         {
-            public string Name { get; }
+            public string Name { get; set; }
+            public Item(string name)
+            {
+                Name = name;
+            }
+            public virtual string Value()
+            {
+                return $"Вам выпал предмет: {Name}";
+            }
+        }
+        public class Weapon : Item
+        {
             public double Damage { get; set; }
             public bool Splash { get; set; }
             public int Level
@@ -24,17 +39,20 @@ namespace Rogalik
                     Level +=1; Damage = Damage*(1+(LevelUp*Level));
                 }
             }
-            public Weapon(string name, int damage, bool splash, int level)
+            public Weapon(string name, int damage, bool splash) : base(name) 
             {
-                Name = name;
                 Damage = damage;
                 Splash = splash;
-                Level = level;
+                Level = 1;
+            }
+            public override string Value()
+            {
+                if (Splash) { return $"Вам выпал предмет: {Name}, Урон по области: {Damage}"; }
+                else { return $"Вам выпал предмет: {Name}, Урон: {Damage}"; }
             }
         }
-        public class Armor
+        public class Armor : Item
         {
-            public string Name { get; }
             public double Protection { get; set; }
             public int Level
             {
@@ -44,11 +62,14 @@ namespace Rogalik
                     Level += 1; Protection = Protection * (1 + (LevelUp * Level));
                 }
             }
-            public Armor(string name, double prot, int level)
+            public Armor(string name, double prot) : base(name)
             {
-                Name = name;
                 Protection = prot;
-                Level = level;
+                Level = 1;
+            }
+            public override string Value()
+            {
+               return $"Вам выпал предмет: {Name}, Защита: {Protection}"; 
             }
         }
 
