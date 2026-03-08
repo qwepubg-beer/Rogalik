@@ -18,7 +18,7 @@ namespace Rogalik
     {
         static public void StartGame()
         {
-            
+            battlesystem(MainStaticClass.hero, MainStaticClass.enemies, MainStaticClass.boses);
         }
         static void battle(Hero p, Enemy e)
         {
@@ -26,7 +26,6 @@ namespace Rogalik
         }
         static void CaseOrBattle(Hero p, Enemy e)
         {
-            //Thread.Sleep(1000);
             if (GetChance(0.50))
             {
                 MessageBox.Show(Spin());
@@ -45,16 +44,16 @@ namespace Rogalik
                 {
                     a.HP = a.MaxHP;
                 }
-                foreach (Enemy a in enemies)
+                foreach (Enemy a in bosses)
                 {
                     a.HP = a.MaxHP;
                 }
                 round += 1;
                 Console.WriteLine($"бой номер {round}");
-                if (round == 10) { Console.WriteLine($"Битва с босом"); battle(p, bosses[GetValue(4)]); }
+                if (round == 10) { MessageBox.Show($"Битва с босом"); battle(p, bosses[GetValue(4)]); }
                 else { CaseOrBattle(p, enemies[GetValue(3)]); }
             }
-            Console.WriteLine("Вы проиграли");
+            MessageBox.Show("Вы проиграли");
         }
     }
 }

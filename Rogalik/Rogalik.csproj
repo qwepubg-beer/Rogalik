@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="Battle.cs" />
     <Compile Include="Case.cs" />
+    <Compile Include="MainStaticClass.cs" />
     <Compile Include="Pages\Game.xaml.cs">
       <DependentUpon>Game.xaml</DependentUpon>
     </Compile>

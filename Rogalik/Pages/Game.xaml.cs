@@ -21,6 +21,7 @@ namespace Rogalik.Pages
     /// </summary>
     public partial class Game : Page
     {
+
         List<string> logs = new List<string>();
         public void Update(string a)
         {

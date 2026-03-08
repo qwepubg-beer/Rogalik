@@ -12,6 +12,7 @@ namespace Rogalik
     {
         public static Item Regeneration = new Item("Зелье регенерации");
         public static Weapon Axe = new Weapon("Топор",10,false);
+        public static Armor iron = new Armor("железная броня", 10);
         public static Weapon Sword = new Weapon("Меч", 9, false);
         public static List <Item> Items = new List <Item> { Axe,Sword};   
         static public double LevelUp = 0.1;
