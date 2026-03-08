@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static Rogalik.Battle;
 
 namespace Rogalik.Pages
 {
@@ -20,9 +21,17 @@ namespace Rogalik.Pages
     /// </summary>
     public partial class Game : Page
     {
+        List<string> logs = new List<string>();
+        public void Update(string a)
+        {
+            logs.Add(a);
+            Log.ItemsSource = logs;
+        }
         public Game()
         {
             InitializeComponent();
+            MessageBox.Show("Игра начинается!");
+            Update("Игра начинается!");
         }
     }
 }

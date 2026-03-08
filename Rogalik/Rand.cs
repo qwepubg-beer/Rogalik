@@ -15,5 +15,11 @@ namespace Rogalik
             bool result = (R.Next(0, 100) <= x * 100) ? true : false;
             return result;
         }
+        public static int GetValue(int x)
+        {
+            Random R = new Random();
+            int result= R.Next(0, x);
+            return result;
+        }
     }
 }

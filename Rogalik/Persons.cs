@@ -5,11 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using static Rogalik.Weapons;
 using static Rogalik.Rand;
+using System.Windows.Navigation;
 
 namespace Rogalik
 {
     internal class Persons
     {
+        
+        public static Goblin goblin = new Goblin(30, 30, "Гоблин", 12, 3);
+        public static Goblin skelet = new Goblin(40, 40, "Скелет", 10, 5);
+        public static Goblin wizard = new Goblin(25, 25, "Маг", 15, 2);
+        public List<Enemy> enemies = new List<Enemy> {goblin,skelet,wizard};
+        public List<Enemy> boses = new List<Enemy> { goblin, skelet, wizard };
         public class Person 
         {   
             public int MaxHP { get; set; }
@@ -50,7 +57,7 @@ namespace Rogalik
         public class Goblin: Enemy
         {
             public static double krit { get; set; } = 0.2;
-            public Goblin(int MaxHP, int HP, string name, double Damage, double Protection, double krit): base (MaxHP, HP, name, Damage, Protection) 
+            public Goblin(int MaxHP, int HP, string name, double Damage, double Protection): base (MaxHP, HP, name, Damage, Protection) 
             {
             }
             public double ReturnDamage(Hero hero,Goblin g)
