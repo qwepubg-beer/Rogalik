@@ -8,7 +8,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Rogalik
 {
-    internal class Weapons
+    public class Weapons
     {
         public static Item Regeneration = new Item("Зелье регенерации");
         public static Weapon Axe = new Weapon("Топор",10,false);

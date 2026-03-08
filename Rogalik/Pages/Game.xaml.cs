@@ -21,7 +21,7 @@ namespace Rogalik.Pages
     /// </summary>
     public partial class Game : Page
     {
-
+        public ListBox ListBox => EnemyListBox;
         List<string> logs = new List<string>();
         public void Update(string a)
         {

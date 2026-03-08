@@ -22,7 +22,7 @@
                     <Image Height="275"></Image>
                     <ProgressBar Height="25"/>
                 </StackPanel>
-                <ListBox x:Name="CPUList"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=3} ">
+                <ListBox x:Name="EnemyListBox"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=3} ">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel HorizontalAlignment="Center">
@@ -45,7 +45,6 @@
         <Border Grid.Row="2" Background="Red">
             <WrapPanel HorizontalAlignment="Center" Margin="5">
                 <StackPanel Width="320" Height="60">
-                    
                 </StackPanel>
                 <Button Content="Атака" Width="80" Height="40" Margin="5"/>
                 <Button Content="Защита" Width="80" Height="40" Margin="5"/>

@@ -55,6 +55,11 @@ namespace Rogalik
                 this.Damage = Damage;
                 this.Protection = Protection;
             }
+            public double ReturnDamage(Hero hero, Enemy e)
+            {
+                double at = e.Damage * hero.Protection.Protection;
+                return at;
+            }
         }
         public class Goblin: Enemy
         {
