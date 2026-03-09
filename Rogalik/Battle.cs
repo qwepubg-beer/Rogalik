@@ -100,7 +100,7 @@ namespace Rogalik
         {
             if (MainStaticClass.enemies.Count == 0) return;
 
-            MainStaticClass.logs.Add($"👹 Враги атакуют в ответ!");
+            MainStaticClass.logs.Add($"Враги атакуют в ответ!");
 
             foreach (Enemy e in MainStaticClass.enemies.ToList()) // ToList() для безопасности
             {

@@ -52,6 +52,21 @@ namespace Rogalik.Pages
         {
             if (MainStaticClass.hero.HP <= 0)
             {
+                MessageBoxResult result = MessageBox.Show(       
+                        $"Вы хотите начать заново?",
+                        "Сообщение",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+                    mainWindow.MainFrame.Navigate(new Game());
+                }
+                else
+                {
+                    Application.Current.Shutdown();
+                }
+
                 MessageBox.Show("Герой мертв! Начните новую игру.");
                 return;
             }
