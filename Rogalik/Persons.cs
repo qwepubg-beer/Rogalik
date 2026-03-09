@@ -61,21 +61,18 @@ namespace Rogalik
             {
                 if (Defending)
                 {
-                    damage /= 2; // Защита уменьшает урон вдвое
+                    damage /= 2;
                     Defending = false;
                 }
-
                 double actualDamage = damage - Protection.Protection;
                 actualDamage = actualDamage > 0 ? actualDamage : 1; // Минимальный урон 1
-
                 HP -= actualDamage;
                 if (HP < 0) HP = 0;
-
                 return actualDamage;
             }
         }
 
-        public class Enemy : Person
+        public class Enemy : Person 
         {
             public double Damage { get; set; }
             public double Protection { get; set; }
@@ -112,26 +109,22 @@ namespace Rogalik
                 {
                     damage *= 2;
                 }
-
                 return damage;
             }
         }
 
         public class Skelet : Enemy
         {
-            public int Armor { get; set; }
 
             public Skelet(int MaxHP, int HP, string name, double Damage, double Protection, string image)
                 : base(MaxHP, HP, name, Damage, Protection, image)
             {
-                Armor = 2; // Дополнительная защита
+
             }
 
             public override double ReturnDamage(double heroProtection)
             {
-                // Скелеты имеют дополнительную защиту
-                double totalProtection = heroProtection + Armor;
-                double damage = Damage - totalProtection;
+                double damage = Damage - heroProtection;
                 return damage > 0 ? damage : 1;
             }
         }

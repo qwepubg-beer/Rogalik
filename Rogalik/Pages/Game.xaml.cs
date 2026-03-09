@@ -75,11 +75,6 @@ namespace Rogalik.Pages
             {
                 Heroattack();
                 RefreshUI();
-                if (MainStaticClass.enemies.Count > 0 && MainStaticClass.hero.HP > 0)
-                {
-                    Enemyattack();
-                }
-                RefreshUI();
                 if (MainStaticClass.enemies.Count == 0 && MainStaticClass.hero.HP > 0)
                 {
                     StartGame();
