@@ -40,9 +40,9 @@ namespace Rogalik
                 this.Damage = Wep;
                 this.Protection = Protection;  
             }
-            public double ReturnDamage(Hero hero, Enemy e)
+            public double ReturnDamage(double Protection)
             {
-                double at = hero.Damage.Damage * e.Protection;
+                double at = Damage.Damage * Protection;
                 return at;
             }
         }
@@ -55,9 +55,9 @@ namespace Rogalik
                 this.Damage = Damage;
                 this.Protection = Protection;
             }
-            public double ReturnDamage(Hero hero, Enemy e)
+            public virtual double ReturnDamage(double Protection)
             {
-                double at = e.Damage * hero.Protection.Protection;
+                double at = Damage * Protection;
                 return at;
             }
         }
@@ -67,9 +67,9 @@ namespace Rogalik
             public Goblin(int MaxHP, int HP, string name, double Damage, double Protection, string image) : base (MaxHP, HP, name, Damage, Protection,image) 
             {
             }
-            public double ReturnDamage(Hero hero,Goblin g)
+            public override double ReturnDamage(double Protection)
             {
-                double at = GetChance(krit) ? g.Damage * hero.Protection.Protection * 2 : g.Damage * hero.Protection.Protection;
+                double at = GetChance(krit) ? Damage * Protection * 2 : Damage * Protection;
                 return at;
             }
         }
@@ -80,9 +80,9 @@ namespace Rogalik
             {
                 this.armor = krit;
             }
-            public double ReturnDamage(Hero hero, Skelet s)
+            public override double ReturnDamage(double Protection)
             {
-                double at = s.Damage;
+                double at = Damage;
                 return at;
             }
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -14,7 +15,7 @@ namespace Rogalik
         public static Weapon Axe = new Weapon("Топор",10,false);
         public static Armor iron = new Armor("железная броня", 10);
         public static Weapon Sword = new Weapon("Меч", 9, false);
-        public static List <Item> Items = new List <Item> { Axe,Sword};   
+        public static List <Item> Items = new List <Item> { Axe,Sword };   
         static public double LevelUp = 0.1;
         public class Item
         {
@@ -32,13 +33,10 @@ namespace Rogalik
         {
             public double Damage { get; set; }
             public bool Splash { get; set; }
-            public int Level
+            public int Level { get; set; }
+            public void SetLevel()
             {
-                get { return Level; }
-                set 
-                { 
-                    Level +=1; Damage = Damage*(1+(LevelUp*Level));
-                }
+                Level += 1; Damage = Damage * (1 + (LevelUp * Level));
             }
             public Weapon(string name, int damage, bool splash) : base(name) 
             {
@@ -55,13 +53,10 @@ namespace Rogalik
         public class Armor : Item
         {
             public double Protection { get; set; }
-            public int Level
+            public int Level { get; set; }
+            public void SetLevel()
             {
-                get { return Level; }
-                set
-                {
-                    Level += 1; Protection = Protection * (1 + (LevelUp * Level));
-                }
+                Level += 1; Protection = Protection * (1 + (LevelUp * Level));
             }
             public Armor(string name, double prot) : base(name)
             {

@@ -18,66 +18,83 @@ namespace Rogalik
     {
         static public void StartGame()
         {
-            battlesystem(MainStaticClass.hero, MainStaticClass.enemies, MainStaticClass.boses);
+            MainStaticClass.raund += 1;
+            MainStaticClass.logs.Add($"Раунд номер {MainStaticClass.raund}");
+
+            battlesystem(MainStaticClass.hero);
         }
         static void battle(Hero p, Enemy e)
         {
             int CountEnemy = GetValue(3);
-            for (int i = 0;i<CountEnemy;i++)
+            for (int i = 0; i < CountEnemy; i++)
             {
-                MainStaticClass.enemies[i] = e;
+                MainStaticClass.enemies.Add(e);
             }
         }
-        static void Heroattack()
+        static public void Heroattack()
         {
             if (!MainStaticClass.hero.Damage.Splash) 
             {
-                MainStaticClass.enemies[0].HP -= MainStaticClass.hero.ReturnDamage(MainStaticClass.hero, MainStaticClass.enemies[0]);
+                UpdateEnemy();
+                MainStaticClass.enemies[0].HP -= MainStaticClass.hero.ReturnDamage(MainStaticClass.enemies[0].Protection);
             }
             else
             {
                 foreach (Enemy e in MainStaticClass.enemies) 
                 {
-                    e.HP -= MainStaticClass.hero.ReturnDamage(MainStaticClass.hero, MainStaticClass.enemies[0]);
+                    UpdateEnemy();
+                    e.HP -= MainStaticClass.hero.ReturnDamage(MainStaticClass.enemies[0].Protection);
                 }
             }
         }
-        static void Enemyattack()
+        static public void UpdateEnemy()
         {
             foreach (Enemy e in MainStaticClass.enemies)
             {
-                MainStaticClass.hero.HP -= e.ReturnDamage(MainStaticClass.hero, MainStaticClass.enemies[0]);
+                if (e.HP <= 0) { MainStaticClass.enemies.Remove(e); }
             }
-            MainStaticClass.hero.HP -= MainStaticClass.hero.ReturnDamage(MainStaticClass.hero, MainStaticClass.enemies[0]);
+        }
+        static public void Enemyattack()
+        {
+            foreach (Enemy e in MainStaticClass.enemies)
+            {
+                MainStaticClass.hero.HP -= e.ReturnDamage(MainStaticClass.hero.Protection.Protection);
+            }
         }
         static void CaseOrBattle(Hero p, Enemy e)
         {
             if (GetChance(0.50))
             {
                 MessageBox.Show(Spin());
+                StartGame();
             }
             else
             {
                 battle(p, e);
             }
         }
-        static void battlesystem(Hero p, List<Enemy> enemies, List<Enemy> bosses)
+        static void battlesystem(Hero p)
         {
-            int round = 0;
             if (p.HP > 0)
             {
-                foreach (Enemy a in enemies)
+                foreach (Enemy a in MainStaticClass.enemies)
                 {
                     a.HP = a.MaxHP;
                 }
-                foreach (Enemy a in bosses)
+                foreach (Enemy a in MainStaticClass.boses)
                 {
                     a.HP = a.MaxHP;
                 }
-                if (round == 10) { MessageBox.Show($"Битва с босом"); battle(p, bosses[GetValue(4)]); }
-                else { CaseOrBattle(p, enemies[GetValue(3)]); }
+                if (MainStaticClass.raund == 10) 
+                { 
+                    MessageBox.Show($"Битва с босом"); 
+                    battle(p, boses[GetValue(4)]); 
+                }
+                else 
+                { 
+                    CaseOrBattle(p, enemies[GetValue(3)]);
+                }
             }
-            MessageBox.Show("Вы проиграли");
         }
     }
 }

@@ -16,6 +16,8 @@ namespace Rogalik
         static public List<Enemy> enemies { get; set; }= new List<Enemy>();
         static public List<Enemy> boses { get; set; } = new List<Enemy>();
         static public Enemy boss { get; set; }
-        static public int raund { get; set; }   
+        static public int raund { get; set; } = 0;
+        public static List<Item> items { get; set; }=new List<Item>();
+        public static List<string> logs { get; set; } = new List<string>();
     }
 }

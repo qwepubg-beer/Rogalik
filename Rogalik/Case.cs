@@ -12,7 +12,7 @@ namespace Rogalik
     {
         public static string Spin()
         {
-            if (GetChance(0.50))
+            if (GetChance(0.40))
             {
                 return Regeneration.Value();
             }

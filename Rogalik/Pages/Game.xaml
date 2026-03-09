@@ -19,18 +19,19 @@
         <Border Grid.Row="1" Background="LightGray" Margin="5">
             <WrapPanel HorizontalAlignment="Center" Margin="5" VerticalAlignment="Center">
                 <StackPanel Width="200" Height="300" Margin="0,0,10,0">
-                    <Image Height="275"></Image>
-                    <ProgressBar Height="25"/>
+                    <Image Height="275" Source="{Binding image}"></Image>
+                    <TextBlock Padding="5" Text="{Binding name}" TextWrapping="Wrap"/>
+                    <ProgressBar Height="25" Maximum="{Binding MaxHP}" Value="{Binding HP}"/>
                 </StackPanel>
-                <ListBox x:Name="EnemyListBox"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=3} ">
+                <ListBox x:Name="EnemyListBox"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=3}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel HorizontalAlignment="Center">
-                                <Image Height="240" Width="175"  Source="{Binding basepartCPU.image}"/>
+                                <Image Height="240" Width="175"  Source="{Binding image}"/>
                                 <StackPanel VerticalAlignment="Center">
                                     <TextBlock Padding="5" Text="{Binding name}" TextWrapping="Wrap"/>
+                                    <ProgressBar Height="25" Maximum="{Binding MaxHP}"  Value="{Binding HP}"/>
                                 </StackPanel>
-                                <ProgressBar Height="25"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -46,7 +47,7 @@
             <WrapPanel HorizontalAlignment="Center" Margin="5">
                 <StackPanel Width="320" Height="60">
                 </StackPanel>
-                <Button Content="Атака" Width="80" Height="40" Margin="5"/>
+                <Button Content="Атака" Width="80" Height="40" Margin="5" Click="Button_Click"/>
                 <Button Content="Защита" Width="80" Height="40" Margin="5"/>
                 <ListBox Name="Log" Width="255" Height="60"/>
             </WrapPanel>

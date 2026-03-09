@@ -21,18 +21,36 @@ namespace Rogalik.Pages
     /// </summary>
     public partial class Game : Page
     {
-        public ListBox ListBox => EnemyListBox;
-        List<string> logs = new List<string>();
-        public void Update(string a)
+        public void UpdateLog(string a)
         {
-            logs.Add(a);
-            Log.ItemsSource = logs;
+            MainStaticClass.logs.Add(a);
+            Log.ItemsSource = MainStaticClass.logs;
+        }
+        public void UpdateE()
+        {
+            EnemyListBox.ItemsSource = MainStaticClass.enemies;
         }
         public Game()
         {
+            DataContext = MainStaticClass.hero;
             InitializeComponent();
-            MessageBox.Show("Игра начинается!");
-            Update("Игра начинается!");
+            StartGame();
+            UpdateLog("Игра начинается!");
+            EnemyListBox.ItemsSource = MainStaticClass.enemies;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (MainStaticClass.enemies.Count > 0)
+            {
+                Heroattack(); UpdateE();
+            }
+            else 
+            {
+                StartGame();
+            }
+            Enemyattack();
+            DataContext=MainStaticClass.hero;
         }
     }
 }
