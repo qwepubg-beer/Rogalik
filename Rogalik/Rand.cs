@@ -9,17 +9,24 @@ namespace Rogalik
 {
     internal class Rand
     {
+        private static Random _random = new Random();
+        private static readonly object _lock = new object();
+
         public static bool GetChance(double x)
         {
-            Random R = new Random();
-            bool result = (R.Next(0, 100) <= x * 100) ? true : false;
-            return result;
+            lock (_lock)
+            {
+                return _random.NextDouble() < x;
+            }
         }
+
         public static int GetValue(int x)
         {
-            Random R = new Random();
-            int result= R.Next(0, x);
-            return result;
+            if (x <= 0) return 0;
+            lock (_lock)
+            {
+                return _random.Next(x);
+            }
         }
     }
 }

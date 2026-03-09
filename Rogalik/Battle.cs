@@ -19,39 +19,72 @@ namespace Rogalik
         static public void StartGame()
         {
             MainStaticClass.raund += 1;
-            MainStaticClass.logs.Add($"Раунд номер {MainStaticClass.raund}");
+            MainStaticClass.logs.Add($"=== Раунд номер {MainStaticClass.raund} ===");
+
+            // Очищаем список врагов перед новым раундом
+            MainStaticClass.enemies.Clear();
 
             battlesystem(MainStaticClass.hero);
         }
         static void battle(Hero p, Enemy e)
         {
             int CountEnemy = GetValue(3);
+            MainStaticClass.logs.Add($"Появилось {CountEnemy} врагов типа {e.name}");
+
             for (int i = 0; i < CountEnemy; i++)
             {
-                MainStaticClass.enemies.Add(e);
+                Enemy newEnemy = new Enemy
+                {
+                    name = e.name,
+                    HP = e.MaxHP,
+                    MaxHP = e.MaxHP,
+                    Protection = e.Protection,
+                    Damage = e.Damage,
+                    image= e.image
+                };
+                MainStaticClass.enemies.Add(newEnemy);
             }
         }
         static public void Heroattack()
         {
-            if (!MainStaticClass.hero.Damage.Splash) 
+            if (!MainStaticClass.hero.Damage.Splash)
             {
-                UpdateEnemy();
-                MainStaticClass.enemies[0].HP -= MainStaticClass.hero.ReturnDamage(MainStaticClass.enemies[0].Protection);
+                if (MainStaticClass.enemies.Count > 0)
+                {
+                    MainStaticClass.enemies[0].HP -= MainStaticClass.hero.ReturnDamage(MainStaticClass.enemies[0].Protection);
+                    MainStaticClass.logs.Add($"Вы нанесли урон врагу. У врага осталось {MainStaticClass.enemies[0].HP} HP");
+                }
             }
             else
             {
-                foreach (Enemy e in MainStaticClass.enemies) 
+                foreach (Enemy e in MainStaticClass.enemies.ToList()) // Используем ToList() для копии
                 {
-                    UpdateEnemy();
                     e.HP -= MainStaticClass.hero.ReturnDamage(MainStaticClass.enemies[0].Protection);
                 }
+                MainStaticClass.logs.Add($"Вы нанесли урон всем врагам!");
             }
+
+            // Вызываем UpdateEnemy только один раз
+            UpdateEnemy();
         }
         static public void UpdateEnemy()
         {
-            foreach (Enemy e in MainStaticClass.enemies)
+            if (MainStaticClass.enemies.Count > 0)
             {
-                if (e.HP <= 0) { MainStaticClass.enemies.Remove(e); }
+                // Создаем копию списка для итерации
+                var enemiesToRemove = MainStaticClass.enemies.Where(e => e.HP <= 0).ToList();
+
+                foreach (var enemy in enemiesToRemove)
+                {
+                    MainStaticClass.enemies.Remove(enemy);
+                    MainStaticClass.logs.Add($"Враг повержен!");
+                }
+
+                // Если врагов не осталось, начинаем новый раунд
+                if (MainStaticClass.enemies.Count == 0)
+                {
+                    StartGame();
+                }
             }
         }
         static public void Enemyattack()
@@ -65,8 +98,10 @@ namespace Rogalik
         {
             if (GetChance(0.50))
             {
-                MessageBox.Show(Spin());
-                StartGame();
+                string caseResult = Spin(); // Ваш метод Spin()
+                MainStaticClass.logs.Add($"Кейс: {caseResult}");
+                MessageBox.Show(caseResult);
+                StartGame(); // После кейса сразу новый раунд
             }
             else
             {
@@ -75,26 +110,27 @@ namespace Rogalik
         }
         static void battlesystem(Hero p)
         {
-            if (p.HP > 0)
+            if (p.HP <= 0)
             {
-                foreach (Enemy a in MainStaticClass.enemies)
-                {
-                    a.HP = a.MaxHP;
-                }
-                foreach (Enemy a in MainStaticClass.boses)
-                {
-                    a.HP = a.MaxHP;
-                }
-                if (MainStaticClass.raund == 10) 
-                { 
-                    MessageBox.Show($"Битва с босом"); 
-                    battle(p, boses[GetValue(4)]); 
-                }
-                else 
-                { 
-                    CaseOrBattle(p, enemies[GetValue(3)]);
-                }
+                MainStaticClass.logs.Add("Герой погиб! Игра окончена.");
+                MessageBox.Show("Game Over!");
+                return;
             }
+
+            // Очищаем врагов перед новой битвой
+            MainStaticClass.enemies.Clear();
+
+            if (MainStaticClass.raund == 10)
+            {
+                MainStaticClass.logs.Add($"БИТВА С БОССОМ!");
+                battle(p, boses[GetValue(boses.Count)]);
+            }
+            else
+            {
+                CaseOrBattle(p, enemies[GetValue(enemies.Count)]);
+            }
+        }
+    }
         }
     }
 }
