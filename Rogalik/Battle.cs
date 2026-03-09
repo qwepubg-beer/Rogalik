@@ -28,80 +28,104 @@ namespace Rogalik
         }
         static void battle(Hero p, Enemy e)
         {
-            int CountEnemy = GetValue(3);
-            MainStaticClass.logs.Add($"Появилось {CountEnemy} врагов типа {e.name}");
+            int CountEnemy = GetValue(3) + 1;
+            MainStaticClass.logs.Add($"Появилось {CountEnemy} врагов типа {e.Name}");
 
             for (int i = 0; i < CountEnemy; i++)
             {
-                Enemy newEnemy = new Enemy
-                {
-                    name = e.name,
-                    HP = e.MaxHP,
-                    MaxHP = e.MaxHP,
-                    Protection = e.Protection,
-                    Damage = e.Damage,
-                    image= e.image
-                };
+                // Создаем копию через конструктор копирования
+                Enemy newEnemy = (Enemy)Activator.CreateInstance(e.GetType(),
+                    e.MaxHP, e.MaxHP, e.Name, e.Damage, e.Protection, e.Image);
+
                 MainStaticClass.enemies.Add(newEnemy);
             }
         }
         static public void Heroattack()
         {
-            if (!MainStaticClass.hero.Damage.Splash)
+            if (MainStaticClass.enemies.Count == 0) return;
+
+            // Запоминаем, был ли сплеш урон
+            bool wasSplash = MainStaticClass.hero.Damage.Splash;
+
+            // Герой атакует
+            if (!wasSplash)
             {
-                if (MainStaticClass.enemies.Count > 0)
-                {
-                    MainStaticClass.enemies[0].HP -= MainStaticClass.hero.ReturnDamage(MainStaticClass.enemies[0].Protection);
-                    MainStaticClass.logs.Add($"Вы нанесли урон врагу. У врага осталось {MainStaticClass.enemies[0].HP} HP");
-                }
+                // Атака по первому врагу
+                Enemy target = MainStaticClass.enemies[0];
+                double damage = MainStaticClass.hero.ReturnDamage(target.Protection);
+                target.HP -= damage;
+                MainStaticClass.logs.Add($"⚔️ Вы нанесли {damage:F1} урона {target.Name}");
             }
             else
             {
-                foreach (Enemy e in MainStaticClass.enemies.ToList()) // Используем ToList() для копии
+                // Атака по всем врагам
+                foreach (Enemy e in MainStaticClass.enemies.ToList())
                 {
-                    e.HP -= MainStaticClass.hero.ReturnDamage(MainStaticClass.enemies[0].Protection);
+                    double damage = MainStaticClass.hero.ReturnDamage(e.Protection);
+                    e.HP -= damage;
                 }
-                MainStaticClass.logs.Add($"Вы нанесли урон всем врагам!");
+                MainStaticClass.logs.Add($"⚔️ Вы нанесли урон по области всем врагам!");
             }
-
-            // Вызываем UpdateEnemy только один раз
-            UpdateEnemy();
+            CheckDeadEnemies();
+            if (MainStaticClass.enemies.Count > 0)
+            {
+                Enemyattack();
+            }
         }
-        static public void UpdateEnemy()
+
+        // Новый метод для проверки мертвых врагов
+        static public void CheckDeadEnemies()
         {
             if (MainStaticClass.enemies.Count > 0)
             {
-                // Создаем копию списка для итерации
-                var enemiesToRemove = MainStaticClass.enemies.Where(e => e.HP <= 0).ToList();
+                var deadEnemies = MainStaticClass.enemies.Where(e => e.HP <= 0).ToList();
 
-                foreach (var enemy in enemiesToRemove)
+                foreach (var enemy in deadEnemies)
                 {
                     MainStaticClass.enemies.Remove(enemy);
-                    MainStaticClass.logs.Add($"Враг повержен!");
+                    MainStaticClass.logs.Add($"💀 {enemy.Name} повержен!");
                 }
-
-                // Если врагов не осталось, начинаем новый раунд
-                if (MainStaticClass.enemies.Count == 0)
-                {
-                    StartGame();
-                }
+            }
+        }
+        static public void UpdateEnemy()
+        {
+            // Этот метод теперь только проверяет, не пора ли начать новый раунд
+            if (MainStaticClass.enemies.Count == 0 && MainStaticClass.hero.HP > 0)
+            {
+                MainStaticClass.logs.Add($"🎉 Все враги побеждены!");
+                StartGame();
             }
         }
         static public void Enemyattack()
         {
-            foreach (Enemy e in MainStaticClass.enemies)
+            if (MainStaticClass.enemies.Count == 0) return;
+
+            MainStaticClass.logs.Add($"👹 Враги атакуют в ответ!");
+
+            foreach (Enemy e in MainStaticClass.enemies.ToList()) // ToList() для безопасности
             {
-                MainStaticClass.hero.HP -= e.ReturnDamage(MainStaticClass.hero.Protection.Protection);
+                double damage = e.ReturnDamage(MainStaticClass.hero.Protection.Protection);
+                MainStaticClass.hero.HP -= damage;
+                MainStaticClass.logs.Add($"💥 {e.Name} нанес {damage:F1} урона");
+
+                // Проверяем, не умер ли герой
+                if (MainStaticClass.hero.HP <= 0)
+                {
+                    MainStaticClass.hero.HP = 0;
+                    MainStaticClass.logs.Add($"💔 Герой погиб в бою!");
+                    MessageBox.Show("Game Over!");
+                    return;
+                }
             }
         }
         static void CaseOrBattle(Hero p, Enemy e)
         {
             if (GetChance(0.50))
             {
-                string caseResult = Spin(); // Ваш метод Spin()
+                string caseResult = Spin(); 
                 MainStaticClass.logs.Add($"Кейс: {caseResult}");
                 MessageBox.Show(caseResult);
-                StartGame(); // После кейса сразу новый раунд
+                StartGame();
             }
             else
             {
@@ -129,8 +153,6 @@ namespace Rogalik
             {
                 CaseOrBattle(p, enemies[GetValue(enemies.Count)]);
             }
-        }
-    }
         }
     }
 }

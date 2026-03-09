@@ -24,32 +24,31 @@ namespace Rogalik.Pages
         public Game()
         {
             InitializeComponent();
+            DataContext = MainStaticClass.hero;
             StartGame();
             UpdateLog("Игра начинается!");
-            UpdateE();
-            DataContext = MainStaticClass.hero;
         }
 
-        public void UpdateLog(string a)
+        public void RefreshUI()
         {
-            MainStaticClass.logs.Add(a);
+            DataContext = null;
+            DataContext = MainStaticClass.hero;
+            EnemyListBox.ItemsSource = null;
+            EnemyListBox.ItemsSource = MainStaticClass.enemies;
             Log.ItemsSource = null;
             Log.ItemsSource = MainStaticClass.logs;
-
-            // Автопрокрутка
+            if (InventoryListBox != null)
+            {
+                InventoryListBox.ItemsSource = null;
+                InventoryListBox.ItemsSource = MainStaticClass.hero.Items;
+            }
             if (Log.Items.Count > 0)
             {
                 Log.ScrollIntoView(Log.Items[Log.Items.Count - 1]);
             }
         }
 
-        public void UpdateE()
-        {
-            EnemyListBox.ItemsSource = null;
-            EnemyListBox.ItemsSource = MainStaticClass.enemies;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Attack_Click(object sender, RoutedEventArgs e)
         {
             if (MainStaticClass.hero.HP <= 0)
             {
@@ -59,31 +58,54 @@ namespace Rogalik.Pages
 
             if (MainStaticClass.enemies.Count > 0)
             {
-                // Герой атакует
                 Heroattack();
-
-                // Обновляем список врагов после атаки
-                UpdateE();
-
-                // Если враги еще есть, они атакуют
-                if (MainStaticClass.enemies.Count > 0)
+                RefreshUI();
+                if (MainStaticClass.enemies.Count > 0 && MainStaticClass.hero.HP > 0)
                 {
                     Enemyattack();
-
-                    // Проверяем, не умер ли герой
-                    if (MainStaticClass.hero.HP <= 0)
-                    {
-                        UpdateLog("Герой погиб в бою!");
-                        MessageBox.Show("Вы погибли!");
-                    }
+                }
+                RefreshUI();
+                if (MainStaticClass.enemies.Count == 0 && MainStaticClass.hero.HP > 0)
+                {
+                    StartGame();
+                    RefreshUI();
                 }
             }
+            else
+            {
+                StartGame();
+                RefreshUI();
+            }
+        }
 
-            // Обновляем интерфейс
-            DataContext = null;
-            DataContext = MainStaticClass.hero;
-            UpdateLog(""); // Пустой вызов для обновления списка логов
-            UpdateE();
+        private void Button_Defend_Click(object sender, RoutedEventArgs e)
+        {
+            if (MainStaticClass.hero.HP <= 0) return;
+
+            MainStaticClass.hero.Defending = true;
+            UpdateLog("🛡️ Герой готовится к защите!");
+
+            if (MainStaticClass.enemies.Count > 0)
+            {
+                Enemyattack();
+                MainStaticClass.hero.Defending = false;
+            }
+
+            RefreshUI();
+        }
+
+        private void Button_Case_Click(object sender, RoutedEventArgs e)
+        {
+            if (MainStaticClass.hero.HP <= 0) return;
+
+            string caseResult = Case.Spin();
+            UpdateLog(caseResult);
+            RefreshUI();
+        }
+
+        public void UpdateLog(string message)
+        {
+            MainStaticClass.logs.Add(message);
         }
     }
 }

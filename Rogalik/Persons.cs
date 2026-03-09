@@ -15,12 +15,11 @@ namespace Rogalik
         public static Goblin goblin = new Goblin(30, 30, "Гоблин", 12, 3, "../Images/goblin.jpg");
         public static Skelet skelet = new Skelet(40, 40, "Скелет", 10, 5, "../Images/skelet.png");
         public static Wizard wizard = new Wizard(25, 25, "Маг", 15, 2, "../Images/wizard.png");
-
         public static List<Enemy> enemies = new List<Enemy> { goblin, skelet, wizard };
         public static List<Enemy> boses = new List<Enemy> {
-        new Goblin(50, 50, "Гоблин-вождь", 18, 5, "../Images/goblin_boss.png"),
-        new Skelet(60, 60, "Костяной дракон", 20, 8, "../Images/skelet_boss.png"),
-        new Wizard(45, 45, "Архимаг", 22, 4, "../Images/wizard_boss.png")};
+        new Goblin(50, 50, "Гоблин-вождь", 18, 5, ""),
+        new Skelet(60, 60, "Костяной дракон", 20, 8, ""),
+        new Wizard(45, 45, "Архимаг", 22, 4, "")};
 
         public class Person
         {

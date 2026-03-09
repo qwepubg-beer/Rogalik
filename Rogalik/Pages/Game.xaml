@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Rogalik.Pages"
+      xmlns:local="clr-namespace:Rogalik"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Game">
@@ -11,46 +11,189 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="150"/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" Background="Red">
-            <TextBlock Text="Этаж номер 1" FontSize="20" Margin="10" HorizontalAlignment="Right"/>
-        </Border>
-        <Border Grid.Row="1" Background="LightGray" Margin="5">
-            <WrapPanel HorizontalAlignment="Center" Margin="5" VerticalAlignment="Center">
-                <StackPanel Width="200" Height="300" Margin="0,0,10,0">
-                    <Image Height="275" Source="{Binding image}"></Image>
-                    <TextBlock Padding="5" Text="{Binding name}" TextWrapping="Wrap"/>
-                    <ProgressBar Height="25" Maximum="{Binding MaxHP}" Value="{Binding HP}"/>
+
+        <!-- Верхняя панель -->
+        <Border Grid.Row="0" Background="#3E3E3E" BorderBrush="#FF5555" BorderThickness="0,0,0,2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <!-- Название игры и этаж - ИСПРАВЛЕНО -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+                    <TextBlock Text="Rogalik" Foreground="#FF5555" FontSize="24" FontWeight="Bold" Margin="0,0,20,0"/>
+                    <TextBlock Text="Этаж:" Foreground="White" FontSize="18" Margin="0,0,5,0"/>
+                    <TextBlock Text="{Binding Source={x:Static local:MainStaticClass.raund}}" 
+                              Foreground="#FFFF55" FontSize="18" FontWeight="Bold"/>
                 </StackPanel>
-                <ListBox x:Name="EnemyListBox"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=3}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel HorizontalAlignment="Center">
-                                <Image Height="240" Width="175"  Source="{Binding image}"/>
-                                <StackPanel VerticalAlignment="Center">
-                                    <TextBlock Padding="5" Text="{Binding name}" TextWrapping="Wrap"/>
-                                    <ProgressBar Height="25" Maximum="{Binding MaxHP}"  Value="{Binding HP}"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel/>
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                </ListBox>
-            </WrapPanel>
-        </Border>
-        <Border Grid.Row="2" Background="Red">
-            <WrapPanel HorizontalAlignment="Center" Margin="5">
-                <StackPanel Width="320" Height="60">
+
+                <!-- Оружие и броня -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="10">
+                    <TextBlock Text="⚔️" FontSize="20" Foreground="#FFAA55" Margin="0,0,5,0"/>
+                    <TextBlock Text="{Binding Source={x:Static local:MainStaticClass.hero}, Path=Damage.Name}" 
+                              Foreground="White" FontSize="14" Margin="0,0,15,0"/>
+                    <TextBlock Text="🛡️" FontSize="20" Foreground="#55AAFF" Margin="0,0,5,0"/>
+                    <TextBlock Text="{Binding Source={x:Static local:MainStaticClass.hero}, Path=Protection.Name}" 
+                              Foreground="White" FontSize="14"/>
                 </StackPanel>
-                <Button Content="Атака" Width="80" Height="40" Margin="5" Click="Button_Click"/>
-                <Button Content="Защита" Width="80" Height="40" Margin="5"/>
-                <ListBox Name="Log" Width="255" Height="60"/>
-            </WrapPanel>
+            </Grid>
         </Border>
+
+        <!-- Центральная область боя -->
+        <Border Grid.Row="1" Background="#2E2E2E" Margin="5" CornerRadius="10">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+
+                    <!-- Герой -->
+                    <Border Background="#3E3E3E" CornerRadius="10" Padding="10" Margin="0,0,20,0" Width="220">
+                        <StackPanel>
+                            <Border Background="#555" CornerRadius="5" Margin="0,0,0,10">
+                                <Image Height="200" Source="{Binding Source={x:Static local:MainStaticClass.hero}, Path=Image}" 
+                                      Stretch="Uniform"/>
+                            </Border>
+                            <TextBlock Text="{Binding Source={x:Static local:MainStaticClass.hero}, Path=Name}" 
+                                      Foreground="White" FontSize="16" 
+                                      FontWeight="Bold" HorizontalAlignment="Center"/>
+
+                            <!-- Прогресс бар здоровья героя -->
+                            <ProgressBar Height="20" 
+                                        Maximum="{Binding Source={x:Static local:MainStaticClass.hero}, Path=MaxHP}" 
+                                        Value="{Binding Source={x:Static local:MainStaticClass.hero}, Path=HP}" 
+                                        Foreground="#FF5555" Background="#333" Margin="0,5"/>
+
+                            <TextBlock Text="{Binding Source={x:Static local:MainStaticClass.hero}, Path=HP, StringFormat='HP: {0:F0}/{1:F0}'}" 
+                                      Foreground="#CCC" FontSize="12" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Враги - используем ItemsSource напрямую через x:Static -->
+                    <ListBox x:Name="EnemyListBox"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                            ItemsSource="{Binding Source={x:Static local:MainStaticClass.enemies}}">
+
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="#3E3E3E" CornerRadius="10" Padding="10" Margin="5" Width="180">
+                                    <StackPanel>
+                                        <Border Background="#555" CornerRadius="5" Margin="0,0,0,10">
+                                            <Image Height="150" Source="{Binding Image}" Stretch="Uniform"/>
+                                        </Border>
+                                        <TextBlock Text="{Binding Name}" Foreground="#FF5555" 
+                                                  FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                        <ProgressBar Height="15" Maximum="{Binding MaxHP}" 
+                                                    Value="{Binding HP}" Foreground="#FF5555" 
+                                                    Background="#333" Margin="0,5"/>
+                                        <TextBlock Text="{Binding HP, StringFormat='HP: {0:F0}/{1:F0}'}" 
+                                                  Foreground="#CCC" FontSize="11" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </WrapPanel>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Нижняя панель -->
+        <Grid Grid.Row="2" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="250"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Инвентарь -->
+            <Border Grid.Column="0" Background="#3E3E3E" CornerRadius="10" Margin="0,0,5,0" Padding="5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="📦 Инвентарь" Foreground="White" FontSize="14" 
+                              FontWeight="Bold" Margin="5" HorizontalAlignment="Center"/>
+
+                    <ListBox Grid.Row="1" 
+                            Name="InventoryListBox"
+                            Background="#2E2E2E" 
+                            BorderThickness="0"
+                            ItemsSource="{Binding Source={x:Static local:MainStaticClass.hero}, Path=Items}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="#444" CornerRadius="5" Margin="2" Padding="5">
+                                    <TextBlock Text="{Binding Name}" Foreground="White"/>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Border>
+
+            <!-- Логи -->
+            <Border Grid.Column="1" Background="#3E3E3E" CornerRadius="10" Margin="5" Padding="5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="📋 Логи" Foreground="White" FontSize="14" 
+                              FontWeight="Bold" Margin="5" HorizontalAlignment="Center"/>
+
+                    <ListBox Grid.Row="1" 
+                            Name="Log"
+                            Background="#2E2E2E" 
+                            BorderThickness="0"
+                            ItemsSource="{Binding Source={x:Static local:MainStaticClass.logs}}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" Foreground="#CCC" TextWrapping="Wrap" Margin="2"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Border>
+
+            <!-- Кнопки действий -->
+            <Border Grid.Column="2" Background="#3E3E3E" CornerRadius="10" Margin="5,0,0,0" Padding="10">
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="Действия" Foreground="White" FontSize="16" 
+                              FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+
+                    <Button Content="⚔️ АТАКА" 
+                            Width="150" Height="45" 
+                            Margin="5"
+                            Background="#FF5555" 
+                            Foreground="White"
+                            FontWeight="Bold"
+                            FontSize="14"
+                            BorderThickness="0"
+                            Click="Button_Attack_Click"
+                            Cursor="Hand"/>
+
+                    <Button Content="🛡️ ЗАЩИТА" 
+                            Width="150" Height="45" 
+                            Margin="5"
+                            Background="#5555FF" 
+                            Foreground="White"
+                            FontWeight="Bold"
+                            FontSize="14"
+                            BorderThickness="0"
+                            Click="Button_Defend_Click"
+                            Cursor="Hand"/>
+                </StackPanel>
+            </Border>
+        </Grid>
     </Grid>
 </Page>

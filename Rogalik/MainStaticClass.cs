@@ -19,5 +19,12 @@ namespace Rogalik
         static public int raund { get; set; } = 0;
         public static List<Item> items { get; set; }=new List<Item>();
         public static List<string> logs { get; set; } = new List<string>();
+           
     }
+       
 }
+
+
+
+
+    
