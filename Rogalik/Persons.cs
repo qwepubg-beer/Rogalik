@@ -11,13 +11,13 @@ namespace Rogalik
 {
     public class Persons
     {
-        public static Hero Perminov = new Hero(30, 30, "Перминов", Axe, iron, "../Images/perminov.png");
+        public static Hero Perminov = new Hero(100, 100, "Перминов", Axe, iron, "../Images/perminov.png");
         public static Goblin goblin = new Goblin(30, 30, "Гоблин", 12, 3, "../Images/goblin.jpg");
         public static Skelet skelet = new Skelet(40, 40, "Скелет", 10, 5, "../Images/skelet.png");
         public static Wizard wizard = new Wizard(25, 25, "Маг", 15, 2, "../Images/wizard.png");
         public static List<Enemy> enemies = new List<Enemy> { goblin, skelet, wizard };
         public static List<Enemy> boses = new List<Enemy> {
-        new Goblin(50, 50, "Гоблин-вождь", 18, 5, ""),
+        new Goblin(50, 50, "Гоблин-гигант", 18, 5, ""),
         new Skelet(60, 60, "Костяной дракон", 20, 8, ""),
         new Wizard(45, 45, "Архимаг", 22, 4, "")};
 
@@ -140,11 +140,6 @@ namespace Rogalik
 
             public override double ReturnDamage(double heroProtection)
             {
-                if (Rand.GetChance(Skip))
-                {
-                    return Damage * 2; // Игнорирует защиту при крите
-                }
-
                 double damage = Damage - heroProtection;
                 return damage > 0 ? damage : 1;
             }

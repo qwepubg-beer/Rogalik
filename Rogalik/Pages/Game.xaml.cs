@@ -93,7 +93,7 @@ namespace Rogalik.Pages
             if (MainStaticClass.hero.HP <= 0) return;
 
             MainStaticClass.hero.Defending = true;
-            UpdateLog("🛡️ Герой готовится к защите!");
+            UpdateLog("Герой готовится к защите!");
 
             if (MainStaticClass.enemies.Count > 0)
             {

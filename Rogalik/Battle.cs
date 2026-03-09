@@ -99,15 +99,22 @@ namespace Rogalik
         static public void Enemyattack()
         {
             if (MainStaticClass.enemies.Count == 0) return;
-
             MainStaticClass.logs.Add($"Враги атакуют в ответ!");
-
-            foreach (Enemy e in MainStaticClass.enemies.ToList()) // ToList() для безопасности
+            foreach (Enemy e in MainStaticClass.enemies.ToList()) 
             {
                 double damage = e.ReturnDamage(MainStaticClass.hero.Protection.Protection);
                 MainStaticClass.hero.HP -= damage;
                 MainStaticClass.logs.Add($"💥 {e.Name} нанес {damage:F1} урона");
-
+                if (MainStaticClass.enemies[0].Name == "Маг")
+                {
+                    if (GetChance(0.15))
+                    {
+                        double damage2 = e.ReturnDamage(MainStaticClass.hero.Protection.Protection);
+                        MainStaticClass.hero.HP -= damage2;
+                        MainStaticClass.logs.Add($"💥 {e.Name} вас зоморозил");
+                        MainStaticClass.logs.Add($"💥 {e.Name} нанес {damage:F1} урона");
+                    }
+                }
                 // Проверяем, не умер ли герой
                 if (MainStaticClass.hero.HP <= 0)
                 {
