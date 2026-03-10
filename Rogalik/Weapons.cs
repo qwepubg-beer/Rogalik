@@ -23,10 +23,9 @@ namespace Rogalik
         public static Weapon battle = new Weapon("Бутылка водки", 20, false);
         public static Weapon dipseek = new Weapon("Дипсик набиева", 10, true);
         public static Weapon ball = new Weapon("Баскетбольный мяч", 16, false);
-        public static UpgradeWeapon wep = new UpgradeWeapon("Улучшение",true);
-        public static UpgradeArmor arm = new UpgradeArmor("Улучшение","adad");
-        public static List<Item> Items = new List<Item> { arm, mgu, calculater, wep, paket, dipseek, ball, wep, tsirt,mask,battle,sport,parik, arm };
-        static public double Up = 0.2;
+        public static Item up = new Item("Улучшение вооружения");
+        public static List<Item> Items = new List<Item> {mgu, calculater, paket, dipseek, ball, tsirt,mask,battle,sport,parik};
+        static public double Up = 0.1;
         public class Item
         {
             public string Name { get; set; }
@@ -98,16 +97,16 @@ namespace Rogalik
         }
         public class UpgradeWeapon : Item
         {
-            public bool description { get; set; }
+            public char description { get; set; }
 
-            public UpgradeWeapon(string name, bool description) : base(name)
+            public UpgradeWeapon(string name, char description) : base(name)
             {
                 this.description = description;
             }
 
             public override string Value()
             {
-                return $"Вам выпало {Name} оружия";
+                return $"Вам выпало {Name}{description}оружия";
             }
         }
         public class UpgradeArmor : Item
@@ -120,7 +119,7 @@ namespace Rogalik
 
             public override string Value()
             {
-                return $"Вам выпало {Name} брони";
+                return $"Вам выпало {Name} {description} ";
             }
         }
     }

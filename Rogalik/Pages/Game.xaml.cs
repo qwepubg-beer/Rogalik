@@ -240,7 +240,15 @@ namespace Rogalik.Pages
             }
             else
             {
-                return GetRandomItem();
+                if(Rand.GetChance(0.50))
+                {
+                    return Upgrade();
+                }
+                else
+                {
+                    return GetRandomItem();
+                }
+               
             }
         }
 
@@ -267,14 +275,6 @@ namespace Rogalik.Pages
             {
                 message = ArmorDrop(newArmor);
             }
-            else if (newItem is UpgradeArmor newUpgradeArmor)
-            {
-                message = UpgradeArmorDrop(newUpgradeArmor);
-            }
-            else if (newItem is UpgradeWeapon newUpgradeWeapon)
-            {
-                message = UpgradeWeaponDrop(newUpgradeWeapon);
-            }
             else
             {
                 MainStaticClass.hero.Items.Add(newItem);
@@ -294,6 +294,13 @@ namespace Rogalik.Pages
             MainStaticClass.hero.Protection.LevelUp();
             UpdateUI();
             return newWeapon.Value();
+        }
+        private static string Upgrade()
+        {
+            MainStaticClass.hero.Protection.LevelUp();
+            MainStaticClass.hero.Damage.LevelUp();
+            UpdateUI();
+            return $"Ваши показатели улучшены!";
         }
         private static string WeaponDrop(Weapon newWeapon)
         {
