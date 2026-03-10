@@ -60,7 +60,7 @@ namespace Rogalik.Pages
                 if (result == MessageBoxResult.Yes)
                 {
                     MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
-                    mainWindow.MainFrame.Navigate(new Game());
+                    mainWindow.MainFrame.Navigate(new ChooseHero());
                 }
                 else
                 {
