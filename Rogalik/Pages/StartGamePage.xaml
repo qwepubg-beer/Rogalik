@@ -37,11 +37,15 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Button Content="Играть" Grid.Column="7" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" MinHeight="35" Click="Button_Click"/>
-        <Button Content="Об игре" Grid.Column="7" Grid.Row="5" Grid.ColumnSpan="2" VerticalAlignment="Center" MinHeight="35" Click="Button_Click_3"/>
-        <Button Content="Оружия" Grid.Column="7" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Center" MinHeight="35" Click="Button_Click_2"/>
-        <Button Content="Персонажи" Grid.Column="7" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Center" MinHeight="35" Click="Button_Click_1"/>
-        <TextBlock Grid.Column="13" HorizontalAlignment="Center" Grid.Row="8" TextWrapping="Wrap" Grid.ColumnSpan="3"  Text="Версия Beta 1.0" VerticalAlignment="Center" MinHeight="35" FontSize="16" MinWidth="100"/>
-
+        <Border Grid.RowSpan="9" Grid.ColumnSpan="16" Background="#2E2E2E" Margin="5" CornerRadius="10"/>
+        <WrapPanel Grid.Column="6" Grid.Row="2" Grid.ColumnSpan="4" Grid.RowSpan="4" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel >
+                <TextBlock Text="Rogalik"  Foreground="#FF5555" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
+                <Button Content="Играть"  VerticalAlignment="Center" MinHeight="35" MinWidth="150" Click="Button_Click" Margin="10" Background="#FF5555" Foreground="White" FontWeight="Bold" FontSize="14" BorderThickness="4"/>
+                <Button Content="Выбор персонажа" VerticalAlignment="Center" MinHeight="35" MinWidth="120" Click="Button_Click_1" Margin="10"  Background="#5555FF" Foreground="White" FontWeight="Bold" FontSize="14" BorderThickness="4"/>
+                <Button Content="Об игре"  VerticalAlignment="Center" MinHeight="35" Click="Button_Click_3" Margin="10"  Background="#5555FF" Foreground="White" FontWeight="Bold" FontSize="14" BorderThickness="4"/>
+            </StackPanel>
+        </WrapPanel>
+        <TextBlock Grid.Column="13" HorizontalAlignment="Right" Grid.Row="8" TextWrapping="Wrap" Grid.ColumnSpan="3"  Text="Версия 1.0" VerticalAlignment="Center" MinHeight="35" FontSize="16" MinWidth="100"/>
     </Grid>
 </Page>
