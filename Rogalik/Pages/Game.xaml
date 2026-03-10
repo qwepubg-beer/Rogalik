@@ -25,7 +25,7 @@
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
                     <TextBlock Text="Rogalik" Foreground="#FF5555" FontSize="24" FontWeight="Bold" Margin="0,0,20,0"/>
                     <TextBlock Text="Этаж:" Foreground="White" FontSize="24" Margin="0,0,5,0"/>
-                    <TextBlock Text="{Binding Source={x:Static local:MainStaticClass.raund}}" 
+                    <TextBlock Name="RoundTextBlock" Text="" 
                               Foreground="White" FontSize="24" FontWeight="Bold"/>
                 </StackPanel>
                 <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="10">

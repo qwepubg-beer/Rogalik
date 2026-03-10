@@ -27,6 +27,7 @@ namespace Rogalik.Pages
             DataContext = MainStaticClass.hero;
             StartGame();
             UpdateLog("Игра начинается!");
+            RefreshUI();
         }
 
         public void RefreshUI()
@@ -51,8 +52,9 @@ namespace Rogalik.Pages
             {
                 Log.ScrollIntoView(Log.Items[Log.Items.Count - 1]);
             }
-            ArmorTextBlock.Text= $"{Math.Round(MainStaticClass.hero.Protection.Protection)}";
-            WeaponTextBlock.Text = $"{Math.Round(MainStaticClass.hero.Damage.Damage)}";
+            ArmorTextBlock.Text= $"{Math.Round(MainStaticClass.hero.Protection.Protection,2)}";
+            WeaponTextBlock.Text = $"{Math.Round(MainStaticClass.hero.Damage.Damage,2)}";
+            RoundTextBlock.Text= $"{MainStaticClass.raund}";
         }
 
         private void Button_Attack_Click(object sender, RoutedEventArgs e)
