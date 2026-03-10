@@ -26,8 +26,6 @@ namespace Rogalik
 
         private static string HealingPotion()
         {
-            // Исцеляем героя на 50% от максимального здоровья
-            double healAmount = MainStaticClass.hero.MaxHP * 0.5;
             double oldHP = MainStaticClass.hero.MaxHP;
             MainStaticClass.hero.HP = MainStaticClass.hero.MaxHP;
             string message = $"Зелье исцеления! Восстановлено HP";
@@ -60,9 +58,7 @@ namespace Rogalik
 
         private static string HandleWeaponDrop(Weapons.Weapon newWeapon)
         {
-            // Сохраняем текущее оружие для сравнения
             var currentWeapon = MainStaticClass.hero.Damage;
-
             // Используем Dispatcher для асинхронного показа MessageBox
             System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() =>
             {
@@ -75,39 +71,24 @@ namespace Rogalik
                         "Новое оружие",
                         MessageBoxButton.YesNo,
                         MessageBoxImage.Question);
-
-                    // Обработка результата
                     if (result == MessageBoxResult.Yes)
                     {
-                        // Сохраняем старое оружие в инвентарь
-                        if (currentWeapon != null)
-                        {
-                            MainStaticClass.hero.Items.Add(currentWeapon);
-                        }
-
-                        // Экипируем новое оружие
                         MainStaticClass.hero.Damage = newWeapon;
-                        MainStaticClass.logs.Add($"⚔️ Вы экипировали {newWeapon.Name} (Урон: {newWeapon.Damage})");
+                        MainStaticClass.logs.Add($"Вы экипировали {newWeapon.Name} (Урон: {newWeapon.Damage})");
                     }
                     else
                     {
-                        // Добавляем в инвентарь
                         MainStaticClass.hero.Items.Add(newWeapon);
-                        MainStaticClass.logs.Add($"📦 {newWeapon.Name} добавлен в инвентарь");
+                        MainStaticClass.logs.Add($"Вы выбросили  {newWeapon.Name}");
                     }
-
-                    // Обновляем UI после выбора
                     UpdateUI();
                 }
             }), System.Windows.Threading.DispatcherPriority.Background);
-
-            // Возвращаем временное сообщение
-            return "🔍 Выбор оружия...";
+            return "Выбор оружия...";
         }
 
         private static void UpdateUI()
         {
-            // Находим открытую страницу Game и обновляем её
             var mainWindow = System.Windows.Application.Current.MainWindow;
             var frame = mainWindow?.Content as System.Windows.Controls.Frame;
             if (frame?.Content is Pages.Game gamePage)
@@ -118,13 +99,10 @@ namespace Rogalik
                 }));
             }
         }
-
         private static string HandleArmorDrop(Weapons.Armor newArmor)
         {
-            // Проверяем, есть ли у героя текущая броня
             if (MainStaticClass.hero.Protection != null)
             {
-                // Спрашиваем, хочет ли игрок заменить броню
                 MessageBoxResult result = MessageBox.Show(
                     $"Найдена новая броня: {newArmor.Name} (Защита: {newArmor.Protection})\n\n" +
                     $"Текущая броня: {MainStaticClass.hero.Protection.Name} (Защита: {MainStaticClass.hero.Protection.Protection})\n\n" +
@@ -135,26 +113,16 @@ namespace Rogalik
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    // Сохраняем старую броню в инвентарь
-                    if (MainStaticClass.hero.Protection != null)
-                    {
-                        MainStaticClass.hero.Items.Add(MainStaticClass.hero.Protection);
-                    }
-
-                    // Экипируем новую броню
                     MainStaticClass.hero.Protection = newArmor;
                     return $"Вы экипировали {newArmor.Name} (Защита: {newArmor.Protection})";
                 }
                 else
                 {
-                    // Добавляем в инвентарь
-                    MainStaticClass.hero.Items.Add(newArmor);
-                    return $"{newArmor.Name} добавлен в инвентарь";
+                    return $"Вы выбросили {newArmor.Name}";
                 }
             }
             else
             {
-                // У героя нет брони - автоматически экипируем
                 MainStaticClass.hero.Protection = newArmor;
                 return $"Вы получили {newArmor.Name} (Защита: {newArmor.Protection})";
             }
