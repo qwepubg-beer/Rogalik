@@ -54,7 +54,7 @@ namespace Rogalik
             public double ReturnDamage(double enemyProtection)
             {
                 double damage = Damage.Damage - enemyProtection;
-                return damage > 0 ? damage : 1; // Минимальный урон 1
+                return damage > 0 ? damage : 1;
             }
 
             public double TakeDamage(double damage)
@@ -65,7 +65,7 @@ namespace Rogalik
                     Defending = false;
                 }
                 double actualDamage = damage - Protection.Protection;
-                actualDamage = actualDamage > 0 ? actualDamage : 1; // Минимальный урон 1
+                actualDamage = actualDamage > 0 ? actualDamage : 1; 
                 HP -= actualDamage;
                 if (HP < 0) HP = 0;
                 return actualDamage;
