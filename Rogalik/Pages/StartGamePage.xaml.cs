@@ -28,7 +28,14 @@ namespace Rogalik.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            mainWindow.MainFrame.Navigate(new Game());
+            if (MainStaticClass.hero != null)
+            {
+                mainWindow.MainFrame.Navigate(new Game());
+            }
+            else
+            {
+                MessageBox.Show("Выбирите героя!");
+            }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

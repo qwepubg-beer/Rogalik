@@ -55,8 +55,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Battle.cs" />
-    <Compile Include="Case.cs" />
     <Compile Include="MainStaticClass.cs" />
     <Compile Include="Pages\ChooseHero.xaml.cs">
       <DependentUpon>ChooseHero.xaml</DependentUpon>
@@ -121,14 +119,31 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\gordov.jpg" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\goblin.jpg" />
     <Resource Include="Images\skelet.png" />
     <Resource Include="Images\wizard.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\perminov.png" />
+    <Resource Include="Images\veeselov.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\gvv.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\white.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\perminov.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\nabiev.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\koval.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

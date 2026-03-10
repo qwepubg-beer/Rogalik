@@ -31,7 +31,7 @@ namespace Rogalik.Pages
         {
             if (HeroListBox.SelectedItem != null) 
             {
-                HeroListBox.SelectedItem=(Hero)MainStaticClass.hero;
+                MainStaticClass.hero=(Hero)HeroListBox.SelectedItem;
                 MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
                 mainWindow.MainFrame.Navigate(new StartGamePage());
             }

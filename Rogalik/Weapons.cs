@@ -5,6 +5,7 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using static Rogalik.Weapons;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace Rogalik
@@ -12,13 +13,20 @@ namespace Rogalik
     public class Weapons
     {
         public static Item Regeneration = new Item("Зелье регенерации");
-        public static Weapon Axe = new Weapon("Топор", 10, false);
-        public static Armor iron = new Armor("Железная броня", 8);
-        public static Weapon Sword = new Weapon("Меч", 9, false);
-        public static List<Item> Items = new List<Item> { Axe, Sword, Regeneration };
-
-        static public double Up = 0.1;
-
+        public static Weapon calculater = new Weapon("Калькулятор 1С", 15, false);
+        public static Armor paket = new Armor("Пакет 1С", 5);
+        public static Armor tsirt = new Armor("Жёлтая рубашка", 8);
+        public static Armor parik = new Armor("Парик", 9);
+        public static Armor mask = new Armor("Маска pididi", 10);
+        public static Armor sport = new Armor("Спортивный костюм", 12);
+        public static Weapon mgu = new Weapon("Диплом мгу", 15, false);
+        public static Weapon battle = new Weapon("Бутылка водки", 20, false);
+        public static Weapon dipseek = new Weapon("Дипсик набиева", 10, true);
+        public static Weapon ball = new Weapon("Баскетбольный мяч", 16, false);
+        public static UpgradeWeapon wep = new UpgradeWeapon("Улучшение");
+        public static UpgradeArmor arm = new UpgradeArmor("Улучшение");
+        public static List<Item> Items = new List<Item> { arm, mgu, calculater, wep, paket, dipseek, ball, wep, tsirt,mask,battle,sport,parik, arm };
+        static public double Up = 0.2;
         public class Item
         {
             public string Name { get; set; }
@@ -86,6 +94,32 @@ namespace Rogalik
             public override string Value()
             {
                 return $"Вам выпал предмет: {Name}, Защита: {Protection}, Уровень: {Level}";
+            }
+        }
+        public class UpgradeWeapon : Item
+        {
+
+            public UpgradeWeapon(string name) : base(name)
+            {
+
+            }
+
+            public override string Value()
+            {
+                return $"Вам выпало {Name} оружия";
+            }
+        }
+        public class UpgradeArmor : Item
+        {
+
+            public UpgradeArmor(string name) : base(name)
+            {
+
+            }
+
+            public override string Value()
+            {
+                return $"Вам выпало {Name} брони";
             }
         }
     }

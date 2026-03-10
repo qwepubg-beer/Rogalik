@@ -19,29 +19,31 @@
         <WrapPanel Grid.Row="1" HorizontalAlignment="Left">
             <StackPanel>
                 <ListBox x:Name="HeroListBox" Background="Transparent" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-            <ListBox.ItemTemplate>
-        <DataTemplate>
-            <Border Background="#3E3E3E" CornerRadius="10" Padding="10" Margin="5" Width="180">
-                <StackPanel>
-                    <Border Background="#555" CornerRadius="5" Margin="0,0,0,10">
-                        <Image Height="160" Width="90" Source="{Binding Image}" Stretch="Uniform"/>
-                    </Border>
-                    <TextBlock Text="{Binding Name}" Foreground="#FF5555" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
-                            <TextBlock Text="{Binding MaxHp, StringFormat='Здоровье: {0}'}" Foreground="#FF5555" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
-                            <TextBlock Text="{Binding Damage.Name, StringFormat='Оружие: {0}'}" Foreground="#CCC" FontSize="16" HorizontalAlignment="Center"/>
-                            <TextBlock Text="{Binding Damage.Damage, StringFormat='Урон: {0}'}" Foreground="#CCC" FontSize="16" HorizontalAlignment="Center"/>
-                </StackPanel>
-            </Border>
-        </DataTemplate>
-    </ListBox.ItemTemplate>
-</ListBox>
- <Button Content="выбрать"  VerticalAlignment="Center" MinHeight="35" Margin="10"  Background="#5555FF" Foreground="White" FontWeight="Bold" FontSize="14" BorderThickness="4" Click="Button_Click"/>
- </StackPanel>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="#3E3E3E" CornerRadius="10" Padding="10" Margin="5" Width="240">
+                                <StackPanel>
+                                    <Border Background="#555" CornerRadius="5" Margin="0,0,0,10">
+                                        <Image Height="160" Width="90" Source="{Binding Image}" Stretch="Uniform"/>
+                                    </Border>
+                                    <TextBlock Text="{Binding Name}" Foreground="#FF5555" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding MaxHP, StringFormat='Здоровье: {0}'}" Foreground="#FF5555" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Damage.Name, StringFormat='Оружие: {0}'}" Foreground="#CCC" FontSize="16" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Damage.Damage, StringFormat='Урон: {0}'}" Foreground="#CCC" FontSize="16" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Protection.Name, StringFormat='Броня: {0}'}" Foreground="#CCC" FontSize="16" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Protection.Protection, StringFormat='Защита: {0}'}" Foreground="#CCC" FontSize="16" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Button Content="выбрать"  VerticalAlignment="Center" MinHeight="35" Margin="10"  Background="#5555FF" Foreground="White" FontWeight="Bold" FontSize="14" BorderThickness="4" Click="Button_Click"/>
+            </StackPanel>
 </WrapPanel>
     </Grid>
 </Page>

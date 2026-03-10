@@ -12,16 +12,19 @@ namespace Rogalik
     public class Persons
     {
 
-        public static Hero Perminov = new Hero(100, 100, "Перминов", Axe, iron, "../Images/perminov.png");
+        public static Hero Perminov = new Hero(150, 150, "Перминов", mgu, tsirt, "../Images/perminov.jpg");
+        public static Hero Veselov = new Hero(140, 140, "Веселов", ball, sport, "../Images/veeselov.jpg");
+        public static Hero WrWhite = new Hero(200, 100, "Белый", battle, parik, "../Images/white.jpg");
         public static Goblin goblin = new Goblin(30, 30, "Гоблин", 12, 3, "../Images/goblin.jpg");
         public static Skelet skelet = new Skelet(40, 40, "Скелет", 10, 5, "../Images/skelet.png");
         public static Wizard wizard = new Wizard(25, 25, "Маг", 15, 2, "../Images/wizard.png");
         public static List<Enemy> enemies = new List<Enemy> { goblin, skelet, wizard };
-        public static List<Hero> heroes = new List<Hero> { Perminov };
+        public static List<Hero> heroes = new List<Hero> { Perminov,Veselov, WrWhite };
         public static List<Enemy> boses = new List<Enemy> {
-        new Goblin(50, 50, "Гоблин-гигант", 18, 5, ""),
-        new Skelet(60, 60, "Костяной дракон", 20, 8, ""),
-        new Wizard(45, 45, "Архимаг", 22, 4, "")};
+        new Goblin(60, 60, "ВВГ", 18, 4, "../Images/gvv.jpg"),
+        new Skelet(60, 60, "Набиев --", 18, 3, "../Images/nabiev.jpg"),
+        new Wizard(41, 41, "Архимаг#", 22, 6, "../Images/gordov.jpg"),
+        new Skelet(100, 100, "Ковалевский", 12, 7, "../Images/koval.jpg")};
 
         public class Person
         {
@@ -143,7 +146,13 @@ namespace Rogalik
             public override double ReturnDamage(double heroProtection)
             {
                 double damage = Damage - heroProtection;
-                return damage > 0 ? damage : 1;
+                damage = damage > 0 ? damage : 1;
+
+                if (Rand.GetChance(Skip))
+                {
+                    damage *= 2;
+                }
+                return damage;
             }
         }
     }
