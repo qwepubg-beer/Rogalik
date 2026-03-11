@@ -309,7 +309,7 @@ namespace Rogalik.Pages
                 if (currentWeapon != null)
                 {
                     MessageBoxResult result = MessageBox.Show(
-                        $"Найдено новое {newWeapon.Name} броня {newWeapon.Damage}\n\n" +
+                        $"Найдено новое оружие {newWeapon.Name} урон: {newWeapon.Damage}\n\n" +
                         $"Текущее оружие: {currentWeapon.Value()})\n\n" +
                         $"Заменить?",
                         "Новое оружие",
@@ -318,17 +318,19 @@ namespace Rogalik.Pages
                     if (result == MessageBoxResult.Yes)
                     {
                         MainStaticClass.hero.Damage = newWeapon;
-                        MainStaticClass.logs.Add($"Вы экипировали {newWeapon.Name} (Урон: {newWeapon.Damage})");
+                        MainStaticClass.hero.ChangeItems();
+                        return $"Вы экипировали {newWeapon.Name} Урон: {newWeapon.Damage}";
                     }
                     else
                     {
-                        MainStaticClass.hero.Items.Add(newWeapon);
-                        MainStaticClass.logs.Add($"Вы выбросили  {newWeapon.Name}");
-                    }
-                    UpdateUI();
-                }
-                return $"Новое оружие: {newWeapon.Name} (Урон: {newWeapon.Damage}";
+                        return $"Вы выбросили {newWeapon.Name}";
 
+                    }
+                }
+                else
+                { 
+                     return $"Новое оружие: {newWeapon.Name} (Урон: {newWeapon.Damage}";
+                }
         }
         private static void UpdateUI()
         {
@@ -348,7 +350,7 @@ namespace Rogalik.Pages
             if (MainStaticClass.hero.Protection != null)
             {
                 MessageBoxResult result = MessageBox.Show(
-                    $"Найдена новая {newArmor.Name} броня {newArmor.Protection})\n\n" +
+                    $"Найдена новая броня {newArmor.Name} защита: {newArmor.Protection}\n\n" +
                     $"Текущая броня: {currentArnmor.Value()}\n\n" +
                     $"Заменить?",
                     "Новая броня",
@@ -358,7 +360,8 @@ namespace Rogalik.Pages
                 if (result == MessageBoxResult.Yes)
                 {
                     MainStaticClass.hero.Protection = newArmor;
-                    return $"Вы экипировали {newArmor.Name} (Защита: {newArmor.Protection})";
+                    MainStaticClass.hero.ChangeItems();
+                    return $"Вы экипировали {newArmor.Name} Защита: {newArmor.Protection}";
                 }
                 else
                 {

@@ -11,7 +11,7 @@ namespace Rogalik
 {
     public static class MainStaticClass
     {
-        static public Hero hero { get; set; } = null;
+        static public Hero hero { get; set; } = Perminov;
         static public List<Enemy> enemies { get; set; }= new List<Enemy>();
         static public List<Enemy> boses { get; set; } = new List<Enemy>();
         static public Enemy boss { get; set; }

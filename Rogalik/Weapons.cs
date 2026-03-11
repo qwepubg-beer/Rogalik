@@ -21,10 +21,11 @@ namespace Rogalik
         public static Armor sport = new Armor("Спортивный костюм", 12);
         public static Weapon mgu = new Weapon("Диплом мгу", 15, false);
         public static Weapon battle = new Weapon("Бутылка водки", 20, false);
+        public static Weapon fstone = new Weapon("Филосовский камень", 20, true);
         public static Weapon dipseek = new Weapon("Дипсик набиева", 10, true);
         public static Weapon ball = new Weapon("Баскетбольный мяч", 16, false);
         public static Item up = new Item("Улучшение вооружения");
-        public static List<Item> Items = new List<Item> {mgu, calculater, paket, dipseek, ball, tsirt,mask,battle,sport,parik};
+        public static List<Item> Items = new List<Item> {mgu, calculater, paket, dipseek, ball, tsirt,mask,battle,sport,parik,fstone};
         static public double Up = 0.1;
         public class Item
         {
@@ -50,8 +51,8 @@ namespace Rogalik
             public void LevelUp()
             {
                 Level++;
-                Damage++;
-                //Damage = Damage * (1 + (Up * Level));
+                //Damage++;
+                Damage = Damage * (1 + (Up * Level));
             }
 
             public Weapon(string name, double damage, bool splash) : base(name)
@@ -82,8 +83,8 @@ namespace Rogalik
             public void LevelUp()
             {
                 Level++;
-                Protection++;
-                //Protection = Protection * (1 + (Up * Level));
+                //Protection++;
+                Protection = Protection * (1 + (Up * Level));
             }
 
             public Armor(string name, double prot) : base(name)

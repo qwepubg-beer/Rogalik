@@ -12,14 +12,15 @@ namespace Rogalik
     public class Persons
     {
 
-        public static Hero Perminov = new Hero(150, 150, "Перминов", mgu, tsirt, "../Images/perminov.jpg");
-        public static Hero Veselov = new Hero(140, 140, "Веселов", ball, sport, "../Images/veeselov.jpg");
-        public static Hero WrWhite = new Hero(200, 100, "Белый", battle, parik, "../Images/white.jpg");
+        public static Hero Perminov = new Hero(160, 160, "Перминов", mgu, tsirt, "../Images/perminov.jpg");
+        public static Hero Veselov = new Hero(150, 150, "Веселов", ball, sport, "../Images/veeselov.jpg");
+        public static Hero WrWhite = new Hero(200, 110, "Белый", battle, parik, "../Images/white.jpg");
+        public static Hero Prime = new Hero(250, 250, "Перминов Прайм", fstone, sport, "../Images/primeper.jpg");
         public static Goblin goblin = new Goblin(30, 30, "Гоблин", 12, 3, "../Images/goblin.jpg");
         public static Skelet skelet = new Skelet(40, 40, "Скелет", 10, 5, "../Images/skelet.png");
         public static Wizard wizard = new Wizard(25, 25, "Маг", 15, 2, "../Images/wizard.png");
         public static List<Enemy> enemies = new List<Enemy> { goblin, skelet, wizard };
-        public static List<Hero> heroes = new List<Hero> { Perminov,Veselov, WrWhite };
+        public static List<Hero> heroes = new List<Hero> { Perminov,Veselov, WrWhite,Prime };
         public static List<Enemy> boses = new List<Enemy> {
         new Goblin(60, 60, "ВВГ", 18, 4, "../Images/gvv.jpg"),
         new Skelet(60, 60, "Набиев --", 18, 3, "../Images/nabiev.jpg"),
@@ -54,6 +55,13 @@ namespace Rogalik
             {
                 Damage = Wep;
                 this.Protection = Protection;
+                ChangeItems();
+            }
+            public void ChangeItems()
+            {
+                Items.Clear();
+                Items.Add(Damage);
+                Items.Add(Protection);
             }
 
             public double ReturnDamage(double enemyProtection)
@@ -140,7 +148,7 @@ namespace Rogalik
 
             public override double ReturnDamage(double heroProtection, bool defending)
             {
-                double damage = defending ? Damage / 2 - heroProtection : Damage - heroProtection;
+                double damage = defending ? Damage / 2 : Damage;
                 return damage > 0 ? damage : 1;
             }
         }
