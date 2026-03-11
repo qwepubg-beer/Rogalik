@@ -59,7 +59,18 @@ namespace Rogalik
             public double ReturnDamage(double enemyProtection)
             {
                 double damage = Damage.Damage - enemyProtection;
-                return damage > 0 ? damage : 1;
+                if(Defending)
+                {
+                    bool a = GetChance(0.50);
+                    damage = a ? damage / 2 : 0;
+                    return damage;
+                }
+                else
+                {
+                    return damage > 0 ? damage : 1;
+                }
+
+                
             }
 
             public double TakeDamage(double damage)
@@ -89,9 +100,9 @@ namespace Rogalik
                 this.Protection = Protection;
             }
 
-            public virtual double ReturnDamage(double heroProtection)
+            public virtual double ReturnDamage(double heroProtection, bool defending)
             {
-                double damage = Damage - heroProtection;
+                double damage = defending? Damage/2 - heroProtection : Damage - heroProtection;
                 return damage > 0 ? damage : 1;
             }
         }
@@ -105,9 +116,9 @@ namespace Rogalik
             {
             }
 
-            public override double ReturnDamage(double heroProtection)
+            public override double ReturnDamage(double heroProtection, bool defending)
             {
-                double damage = Damage - heroProtection;
+                double damage = defending ? Damage / 2 - heroProtection : Damage - heroProtection;
                 damage = damage > 0 ? damage : 1;
 
                 if (Rand.GetChance(Krit))
@@ -127,9 +138,9 @@ namespace Rogalik
 
             }
 
-            public override double ReturnDamage(double heroProtection)
+            public override double ReturnDamage(double heroProtection, bool defending)
             {
-                double damage = Damage - heroProtection;
+                double damage = defending ? Damage / 2 - heroProtection : Damage - heroProtection;
                 return damage > 0 ? damage : 1;
             }
         }
@@ -143,9 +154,9 @@ namespace Rogalik
             {
             }
 
-            public override double ReturnDamage(double heroProtection)
+            public override double ReturnDamage(double heroProtection, bool defending)
             {
-                double damage = Damage - heroProtection;
+                double damage = defending ? Damage / 2 - heroProtection : Damage - heroProtection;
                 damage = damage > 0 ? damage : 1;
 
                 if (Rand.GetChance(Skip))

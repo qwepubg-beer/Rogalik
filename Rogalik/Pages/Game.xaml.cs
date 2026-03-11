@@ -92,7 +92,8 @@ namespace Rogalik.Pages
 
             if (MainStaticClass.enemies.Count > 0)
             {
-                Enemyattack();
+                Heroattack();
+                //Enemyattack();  
                 MainStaticClass.hero.Defending = false;
             }
             RefreshUI();
@@ -183,7 +184,7 @@ namespace Rogalik.Pages
             MainStaticClass.logs.Add($"Враги атакуют в ответ!");
             foreach (Enemy e in MainStaticClass.enemies.ToList())
             {
-                double damage = e.ReturnDamage(MainStaticClass.hero.Protection.Protection);
+                double damage = e.ReturnDamage(MainStaticClass.hero.Protection.Protection,MainStaticClass.hero.Defending);
                 MainStaticClass.hero.HP -= damage;
                 MainStaticClass.logs.Add($"💥 {e.Name} нанес {damage:F1} урона");
                 if (MainStaticClass.hero.HP <= 0)
@@ -222,7 +223,7 @@ namespace Rogalik.Pages
             // Очищаем врагов перед новой битвой
             MainStaticClass.enemies.Clear();
 
-            if (MainStaticClass.raund == 10)
+            if (MainStaticClass.raund % 10==0)
             {
                 MainStaticClass.logs.Add($"БИТВА С БОССОМ!");
                 battle(p, boses[Rand.GetValue(boses.Count)]);
@@ -308,8 +309,8 @@ namespace Rogalik.Pages
                 if (currentWeapon != null)
                 {
                     MessageBoxResult result = MessageBox.Show(
-                        $"Найдено новое оружие: {newWeapon.Name} (Урон: {newWeapon.Damage})\n\n" +
-                        $"Текущее оружие: {currentWeapon.Name} (Урон: {currentWeapon.Damage})\n\n" +
+                        $"Найдено новое {newWeapon.Name} броня {newWeapon.Damage}\n\n" +
+                        $"Текущее оружие: {currentWeapon.Value()})\n\n" +
                         $"Заменить?",
                         "Новое оружие",
                         MessageBoxButton.YesNo,
@@ -343,11 +344,12 @@ namespace Rogalik.Pages
         }
         private static string ArmorDrop(Armor newArmor)
         {
+            var currentArnmor = MainStaticClass.hero.Protection;
             if (MainStaticClass.hero.Protection != null)
             {
                 MessageBoxResult result = MessageBox.Show(
-                    $"Найдена новая броня: {newArmor.Name} (Защита: {newArmor.Protection})\n\n" +
-                    $"Текущая броня: {MainStaticClass.hero.Protection.Name} (Защита: {MainStaticClass.hero.Protection.Protection})\n\n" +
+                    $"Найдена новая {newArmor.Name} броня {newArmor.Protection})\n\n" +
+                    $"Текущая броня: {currentArnmor.Value()}\n\n" +
                     $"Заменить?",
                     "Новая броня",
                     MessageBoxButton.YesNo,

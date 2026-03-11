@@ -50,7 +50,8 @@ namespace Rogalik
             public void LevelUp()
             {
                 Level++;
-                Damage = Damage * (1 + (Up * Level));
+                Damage++;
+                //Damage = Damage * (1 + (Up * Level));
             }
 
             public Weapon(string name, double damage, bool splash) : base(name)
@@ -64,11 +65,11 @@ namespace Rogalik
             {
                 if (Splash)
                 {
-                    return $"Вам выпал предмет: {Name}, Урон по области: {Damage}, Уровень: {Level}";
+                    return $"оружие: {Name}, Урон по области: {Damage}, Уровень: {Level}";
                 }
                 else
                 {
-                    return $"Вам выпал предмет: {Name}, Урон: {Damage}, Уровень: {Level}";
+                    return $"оружие: {Name}, Урон: {Damage}, Уровень: {Level}";
                 }
             }
         }
@@ -81,7 +82,8 @@ namespace Rogalik
             public void LevelUp()
             {
                 Level++;
-                Protection = Protection * (1 + (Up * Level));
+                Protection++;
+                //Protection = Protection * (1 + (Up * Level));
             }
 
             public Armor(string name, double prot) : base(name)
@@ -92,7 +94,7 @@ namespace Rogalik
 
             public override string Value()
             {
-                return $"Вам выпал предмет: {Name}, Защита: {Protection}, Уровень: {Level}";
+                return $"броня: {Name}, Защита: {Protection}, Уровень: {Level}";
             }
         }
         public class UpgradeWeapon : Item
