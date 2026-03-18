@@ -17,11 +17,12 @@ namespace Rogalik
         public static Hero Veselov = new Hero(150, 150, "Веселов", ball, sport, "../Images/veeselov.jpg");
         public static Hero WrWhite = new Hero(200, 110, "Белый", battle, parik, "../Images/white.jpg");
         public static Hero Prime = new Hero(250, 250, "Перминов Прайм", fstone, sport, "../Images/primeper.jpg");
+        public static Hero Lev = new Hero(200, 200, "Лев Денисович", samokat, paket, "../Images/1с3.jpg");
         public static Goblin goblin = new Goblin(30, 30, "Гоблин", 12, 3, "../Images/goblin.jpg");
         public static Skelet skelet = new Skelet(40, 40, "Скелет", 10, 5, "../Images/skelet.png");
         public static Wizard wizard = new Wizard(25, 25, "Маг", 15, 2, "../Images/wizard.png");
         public static List<Enemy> enemies = new List<Enemy> { goblin, skelet, wizard };
-        public static List<Hero> heroes = new List<Hero> { Perminov,Veselov, WrWhite,Prime,Valera };
+        public static List<Hero> heroes = new List<Hero> { Perminov,Veselov, WrWhite,Prime,Valera,Lev };
         public static List<Enemy> boses = new List<Enemy> {
         new Goblin(60, 60, "ВВГ", 18, 4, "../Images/gvv.jpg"),
         new Skelet(60, 60, "Набиев --", 18, 3, "../Images/nabiev.jpg"),

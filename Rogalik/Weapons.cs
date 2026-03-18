@@ -14,10 +14,11 @@ namespace Rogalik
     {
         public static Item Regeneration = new Item("Зелье регенерации");
         public static Weapon calculater = new Weapon("Калькулятор 1С", 15, false);
-        public static Armor paket = new Armor("Пакет 1С", 5);
+        public static Armor paket = new Armor("Пакет 1С", 6);
         public static Armor tsirt = new Armor("Жёлтая рубашка", 8);
         public static Armor parik = new Armor("Парик", 9);
         public static Armor mask = new Armor("Маска pididi", 10);
+        public static Weapon samokat = new Weapon("Самокат", 12,true);
         public static Armor sport = new Armor("Спортивный костюм", 12);
         public static Weapon mgu = new Weapon("Диплом мгу", 15, false);
         public static Weapon battle = new Weapon("Бутылка водки", 20, false);
@@ -25,7 +26,7 @@ namespace Rogalik
         public static Weapon dipseek = new Weapon("Дипсик набиева", 10, true);
         public static Weapon ball = new Weapon("Баскетбольный мяч", 16, false);
         public static Item up = new Item("Улучшение вооружения");
-        public static List<Item> Items = new List<Item> {mgu, calculater, paket, dipseek, ball, tsirt,mask,battle,sport,parik,fstone};
+        public static List<Item> Items = new List<Item> {mgu, calculater, paket, dipseek, ball, tsirt,mask,battle,sport,parik,fstone, samokat };
         static public double Up = 0.1;
         public class Item
         {
