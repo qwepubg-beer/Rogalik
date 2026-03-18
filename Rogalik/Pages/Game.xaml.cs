@@ -62,7 +62,6 @@ namespace Rogalik.Pages
             if (MainStaticClass.hero.HP <= 0)
             {
                 MessageBox.Show("Герой мертв! Начните новую игру.");
-                Application.Current.Shutdown();
                 return;
             }
 

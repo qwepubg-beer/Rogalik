@@ -41,6 +41,7 @@ namespace Rogalik.Pages
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             mainWindow.MainFrame.Navigate(new ChooseHero());
+            mainWindow.MainFrame.Navigate(new InfoPage());
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
@@ -50,7 +51,7 @@ namespace Rogalik.Pages
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-
+            mainWindow.MainFrame.Navigate(new ChooseHero());
         }
     }
 }

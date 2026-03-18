@@ -17,21 +17,23 @@ using static Rogalik.Persons;
 namespace Rogalik.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для ChooseHero.xaml
+    /// Логика взаимодействия для InfoPage.xaml
     /// </summary>
-    public partial class ChooseHero : Page
+    public partial class InfoPage : Page
     {
-        public ChooseHero()
+        public InfoPage()
         {
             InitializeComponent();
-
+            HeroListBox.ItemsSource = heroes;
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            if (HeroListBox.SelectedItem != null)
+            {
+                MainStaticClass.hero = (Hero)HeroListBox.SelectedItem;
                 MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
                 mainWindow.MainFrame.Navigate(new StartGamePage());
-
+            }
         }
     }
 }
