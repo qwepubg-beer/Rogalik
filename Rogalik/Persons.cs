@@ -27,8 +27,8 @@ namespace Rogalik
         new Goblin(60, 60, "ВВГ", 18, 4, "../Images/gvv.jpg"),
         new Skelet(60, 60, "Набиев --", 18, 3, "../Images/nabiev.jpg"),
         new Wizard(41, 41, "Архимаг#", 22, 6, "../Images/gordov.jpg"),
-        new Skelet(100, 100, "Ковалевский", 12, 7, "../Images/koval.jpg")};
-
+        new Skelet(90, 90, "Ковалевский", 12, 7, "../Images/koval.jpg"),
+        new Wizard(66, 66, "Альшакова", 13, 2, "../Images/alsha.jpg")};
         public class Person
         {
             public int MaxHP { get; set; }

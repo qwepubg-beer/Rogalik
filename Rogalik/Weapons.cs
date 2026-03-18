@@ -14,7 +14,7 @@ namespace Rogalik
     {
         public static Item Regeneration = new Item("Зелье регенерации");
         public static Weapon calculater = new Weapon("Калькулятор 1С", 15, false);
-        public static Armor paket = new Armor("Пакет 1С", 6);
+        public static Armor paket = new Armor("Пакет 1С", 8);
         public static Armor tsirt = new Armor("Жёлтая рубашка", 8);
         public static Armor parik = new Armor("Парик", 9);
         public static Armor mask = new Armor("Маска pididi", 10);

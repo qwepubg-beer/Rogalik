@@ -115,7 +115,6 @@ namespace Rogalik.Pages
 
             for (int i = 0; i < CountEnemy; i++)
             {
-                // Создаем копию через конструктор копирования
                 Enemy newEnemy = (Enemy)Activator.CreateInstance(e.GetType(),
                     e.MaxHP, e.MaxHP, e.Name, e.Damage, e.Protection, e.Image);
 
